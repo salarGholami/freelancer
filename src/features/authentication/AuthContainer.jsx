@@ -20,7 +20,6 @@ function AuthContainer() {
     e.preventDefault();
     try {
       const data = await mutateAsync({ phoneNumber });
-      console.log(data.message);
       setStep(2);
       toast.success(data.message);
     } catch (error) {
