@@ -91,7 +91,6 @@ function CheckOTPForm({ phoneNumber, onBack, onReSendOTP, otpResponse }) {
             </button>
           )}
         </div>
-        
       </form>
     </div>
   );
