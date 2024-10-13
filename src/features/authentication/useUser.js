@@ -3,7 +3,7 @@ import { getUser } from "../../services/authService";
 
 export default function useUser() {
   return useQuery({
-    queryKey: ["get-uer"],
+    queryKey: ["get-user"],
     queryFn: getUser,
     retry: false,
   });
