@@ -7,10 +7,12 @@ import truncateText from "../../utils/truncateText";
 import { HiOutlineTrash } from "react-icons/hi";
 import { TbPencilMinus } from "react-icons/tb";
 import ConfrimDelete from "../../ui/ConfrimDelete";
+import useRemoveProject from "./useRemoveProject";
 
 function ProjectRow({ project, index }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const { isDeleting, removeProject } = useRemoveProject();
 
   return (
     <Table.Row>
@@ -66,7 +68,13 @@ function ProjectRow({ project, index }) {
               <ConfrimDelete
                 resourceNane={project.title}
                 onClose={() => setIsDeleteOpen(false)}
-                onConfrim={() => {}}
+                onConfrim={() =>
+                  removeProject(project._id, {
+                    onSuccess: () => {
+                      setIsDeleteOpen(false);
+                    },
+                  })
+                }
                 disabled={false}
               />
             </Modal>
