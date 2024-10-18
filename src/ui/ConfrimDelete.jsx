@@ -2,7 +2,7 @@ function ConfrimDelete({ resourceNane, onClose, disabled, onConfrim }) {
   return (
     <div>
       <h2 className="font-bold text-base mb-8">
-        آیا از حذف ${resourceNane} مطمعن هستید ؟
+        آیا از حذف {resourceNane} مطمعن هستید ؟
       </h2>
       <div className="flex justify-between items-center gap-x-16">
         <button
