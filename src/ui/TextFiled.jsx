@@ -1,17 +1,30 @@
-function TextFiled({ label, name, value, onChange }) {
+function TextFiled({
+  label,
+  name,
+  register,
+  validationSchema,
+  type = "text",
+  required,
+  errors,
+}) {
   return (
     <div>
-      <label className="mb-1" htmlFor="phoneNumber">
-        {label}
+      <label className="mb-2 block text-secondary-700" htmlFor="phoneNumber">
+        {label} {required && <span className="text-error"></span>}
       </label>
       <input
         className="textField__input"
-        type="text"
+        type={type}
+        name={name}
         id={name}
-        value={value}
-        onChange={onChange}
         autoComplete="off"
+        {...register(name, validationSchema)}
       />
+      {errors && errors[name] && (
+        <span className="text-error block text-sm mt-2">
+          {errors[name]?.message}
+        </span>
+      )}
     </div>
   );
 }

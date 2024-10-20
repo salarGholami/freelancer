@@ -12,7 +12,7 @@ import useRemoveProject from "./useRemoveProject";
 function ProjectRow({ project, index }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const { isDeleting, removeProject } = useRemoveProject();
+  const { removeProject } = useRemoveProject();
 
   return (
     <Table.Row>
