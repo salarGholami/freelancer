@@ -1,36 +1,36 @@
-import { useState } from "react";
-import TextFiled from "../../ui/TextFiled";
-import RadioInput from "../../ui/RadioInput";
+
 import { useMutation } from "@tanstack/react-query";
 import { completeProfile } from "../../services/authService";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import Loading from "../../ui/Loading";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import RadioInputGroup from "../../ui/RadioInputGroup";
+import TextFiled from "../../ui/TextFiled";
 
-function CompleteProfileForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
+function CompleteProfileFrom() {
+  const {
+    handleSubmit,
+    register,
+    watch,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
 
-  const { isPending, mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: completeProfile,
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     try {
-      const { user, message } = await mutateAsync({ name, email, role });
+      const { user, message } = await mutateAsync(data);
       toast.success(message);
-
-      if (user.status !== 2) {
+      if (!user.status !== 2) {
         navigate("/");
-        toast("پروفایل شما در انتظار تایید است", { icon: "💫" });
+        toast("پروفایل شما در انتظار تایید است", { icon: "👏" });
         return;
       }
-
-      if (user.role === "OWNER") return navigate("/ownner");
-
+      if (user.role === "OWNER") return navigate("/owner");
       if (user.role === "FREELANCER") return navigate("/freelancer");
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -38,39 +38,48 @@ function CompleteProfileForm() {
   };
 
   return (
-    <div className="flex justify-center pt-10">
+    <div className="flex flex-col gap-y-6 items-center pt-10">
+      <h1 className="font-bold text-3xl text-secondary-700">تکمیل اطلاعات</h1>
       <div className="w-full sm:max-w-sm">
-        <form className="space-y-8" onSubmit={handleSubmit}>
+        <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
           <TextFiled
             label="نام و نام خانوادگی"
             name="name"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
+            register={register}
+            validationSchema={{
+              required: "نام و نام خانوادگی  ضروری است",
+            }}
+            errors={errors}
           />
           <TextFiled
             label="ایمیل"
             name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            register={register}
+            validationSchema={{
+              required: "ایمیل ضروری است",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "ایمیل نامعتبر است",
+              },
+            }}
+            errors={errors}
           />
-          <div className="flex items-center justify-center gap-x-8">
-            <RadioInput
-              label="کارفرما"
-              value="OWNER"
-              id="OWNER"
-              name="role"
-              onChange={(e) => setRole(e.target.value)}
-              checked={role === "OWNER"}
-            />
-            <RadioInput
-              label="فریلنسر"
-              value="FREELANCER"
-              id="FREELANCER"
-              name="role"
-              onChange={(e) => setRole(e.target.value)}
-              checked={role === "FREELANCER"}
-            />
-          </div>
+          <RadioInputGroup
+            errors={errors}
+            register={register}
+            watch={watch}
+            configs={{
+              name: "role",
+              validationSchema: { required: "انتخاب نقش ضروری است" },
+              options: [
+                {
+                  value: "OWNER",
+                  label: "کارفرما",
+                },
+                { value: "FREELANCER", label: "فریلنسر" },
+              ],
+            }}
+          />
           <div>
             {isPending ? (
               <Loading />
@@ -85,5 +94,4 @@ function CompleteProfileForm() {
     </div>
   );
 }
-
-export default CompleteProfileForm;
+export default CompleteProfileFrom;

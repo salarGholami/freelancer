@@ -28,6 +28,34 @@ function CreateProjectForm() {
         }}
         errors={errors}
       />
+      <TextFiled
+        label="توضیحات"
+        name="description"
+        register={register}
+        required
+        validationSchema={{
+          required: "توضیحات ضروری است",
+          minlength: {
+            value: 30,
+            message: "طول توضیحات نامعتبر است",
+          },
+        }}
+        errors={errors}
+      />
+      <TextFiled
+        label="بودجه"
+        name="budget"
+        register={register}
+        required
+        validationSchema={{
+          required: "بودجه ضروری است",
+          minlength: {
+            value: 10,
+            message: "طول بودجه نامعتبر است",
+          },
+        }}
+        errors={errors}
+      />
       <button type="submit" className="btn btn--primary w-full">
         تایید
       </button>

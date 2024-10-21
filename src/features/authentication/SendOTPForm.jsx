@@ -1,15 +1,17 @@
 import TextFiled from "../../ui/TextFiled";
 import Loading from "../../ui/Loading";
 
-function SendOTPForm({ phoneNumber, onChange, onSubmit, isSendingOTP }) {
+// function SendOTPForm({ onSubmit, isSendingOTP, phoneNumber,onChange }) {
+function SendOTPForm({ onSubmit, isSendingOTP, register }) {
   return (
     <div>
       <form className="space-y-4" onSubmit={onSubmit}>
         <TextFiled
           label="شماره موبایل"
           name="phoneNumber"
-          value={phoneNumber}
-          onChange={onChange}
+          register={register}
+          // value={phoneNumber}
+          // onChange={onChange}
         />
         <div>
           {isSendingOTP ? (
