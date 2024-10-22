@@ -4,6 +4,7 @@ import TextFiled from "../../ui/TextFiled";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import DatePickerField from "../../ui/DatePickerField";
+import useCategories from "../../hooks/useCategories";
 
 function CreateProjectForm() {
   const {
@@ -14,6 +15,8 @@ function CreateProjectForm() {
 
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState(new Date());
+
+  const { categories } = useCategories();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -67,7 +70,7 @@ function CreateProjectForm() {
         label="دسته بندی"
         name="category"
         register={register}
-        options={[]}
+        options={categories}
         required
       />
       <div>
