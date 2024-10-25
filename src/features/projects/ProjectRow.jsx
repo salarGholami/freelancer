@@ -4,12 +4,13 @@ import Table from "../../ui/Table";
 import toLocalDateShort from "../../utils/toLocalDateShort";
 import { toPersianNumberWithComma } from "../../utils/toPersianNumber";
 import truncateText from "../../utils/truncateText";
-import { HiOutlineTrash } from "react-icons/hi";
+import { HiEye, HiOutlineTrash } from "react-icons/hi";
 import { TbPencilMinus } from "react-icons/tb";
 import ConfrimDelete from "../../ui/ConfrimDelete";
 import useRemoveProject from "./useRemoveProject";
 import CreateProjectForm from "./CreateProjectForm";
 import ToggleProjectStatus from "./ToggleProjectStatus";
+import { Link } from "react-router-dom";
 
 function ProjectRow({ project, index }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -34,12 +35,7 @@ function ProjectRow({ project, index }) {
       </td>
       <td>{project.freelancer?.name || "-"}</td>
       <td>
-        <ToggleProjectStatus project={project}/>
-        {/* {project.status === "OPEN" ? (
-          <span className="badge badge--success">باز</span>
-        ) : (
-          <span className="badge badge--danger">بسته</span>
-        )} */}
+        <ToggleProjectStatus project={project} />
       </td>
       <td>
         <div className="flex items-center gap-x-4">
@@ -86,6 +82,11 @@ function ProjectRow({ project, index }) {
             </Modal>
           </>
         </div>
+      </td>
+      <td>
+        <Link to={project._id} className="flex justify-center">
+          <HiEye className="w-5 h-5 text-primary-800" />
+        </Link>
       </td>
     </Table.Row>
   );
