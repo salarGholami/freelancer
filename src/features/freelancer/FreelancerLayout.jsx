@@ -3,7 +3,7 @@ import AppLayout from "../../ui/AppLayout";
 import CustomNavLink from "../../ui/CustomNavLink";
 import Sidebar from "../../ui/Sidebar";
 
-function OwnerLayout() {
+function FreelancerLayout() {
   return (
     <AppLayout>
       <Sidebar>
@@ -19,9 +19,15 @@ function OwnerLayout() {
             <span>پروژه ها</span>
           </CustomNavLink>
         </li>
+        <li>
+          <CustomNavLink to="proposals">
+            <HiCollection />
+            <span>درخواست هاا</span>
+          </CustomNavLink>
+        </li>
       </Sidebar>
     </AppLayout>
   );
 }
 
-export default OwnerLayout;
+export default FreelancerLayout;
