@@ -1,7 +1,7 @@
 import Loading from "../../ui/Loading";
 import useOwnerProjects from "../projects/useOwnerProjects";
 import DasboardHeader from "./DasboardHeader";
-import Stas from "./Stas";
+import Stats from "./Stats";
 
 function DashboardLayout() {
   const { isLoading, projects } = useOwnerProjects();
@@ -11,7 +11,7 @@ function DashboardLayout() {
   return (
     <div>
       <DasboardHeader />
-      <Stas projects={projects} />
+      <Stats projects={projects} />
     </div>
   );
 }
