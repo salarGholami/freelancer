@@ -22,7 +22,7 @@ function FreelancerLayout() {
         <li>
           <CustomNavLink to="proposals">
             <HiCollection />
-            <span>درخواست هاا</span>
+            <span>درخواست ها</span>
           </CustomNavLink>
         </li>
       </Sidebar>
