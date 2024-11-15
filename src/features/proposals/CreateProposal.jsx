@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import TextFiled from "../../ui/TextFiled";
 import Loading from "../../ui/Loading";
+import useCreateProposal from "./useCreateProposal";
 
 function CreateProposal({ onClose, projectId }) {
   const {
@@ -9,8 +10,11 @@ function CreateProposal({ onClose, projectId }) {
     formState: { errors },
   } = useForm();
 
+  const { isCreating, createProposal } = useCreateProposal();
+
   const onSubmit = (data) => {
     console.log(data);
+    createProposal({ ...data, projectId }, { onSuccess: () => onClose() });
   };
 
   return (
@@ -53,7 +57,7 @@ function CreateProposal({ onClose, projectId }) {
           errors={errors}
         />
         <div className="!mt-8">
-          {0 ? (
+          {isCreating ? (
             <Loading />
           ) : (
             <button type="submit" className="btn btn--primary w-full">
