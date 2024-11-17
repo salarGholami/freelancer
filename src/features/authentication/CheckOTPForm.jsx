@@ -32,11 +32,12 @@ function CheckOTPForm({ phoneNumber, onBack, onReSendOTP, otpResponse }) {
         return;
       }
 
-      if (user.role === "OWNER") return navigate("/ownner");
-
+      if (user.role === "OWNER") return navigate("/owner");
       if (user.role === "FREELANCER") return navigate("/freelancer");
-
+      if (user.role === "ADMIN") return navigate("/admin");
+      
       toast.success(message);
+
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
